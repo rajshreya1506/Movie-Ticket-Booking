@@ -8,28 +8,30 @@ import { useAppContext } from '../../context/AppContext';
 const ListBookings = () => {
     const currency = import.meta.env.VITE_CURRENCY
 
-    const {axios, getToken, user} = useAppContext()
+    //const {axios, getToken, user} = useAppContext()
 
     const [bookings, setBookings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const getAllBookings = async () => {
-        try {
-          const { data } = await axios.get("/api/admin/all-bookings", {
-                headers: { Authorization: `Bearer ${await getToken()}` }
-            });
-            setBookings(data.bookings)
-        } catch (error) {
-          console.error(error);
-        }
-        setIsLoading(false)
+        setBookings(dummyBookingData)
+        // try {
+        //   const { data } = await axios.get("/api/admin/all-bookings", {
+        //         headers: { Authorization: `Bearer ${await getToken()}` }
+        //     });
+        //     setBookings(data.bookings)
+        // } catch (error) {
+        //   console.error(error);
+        // }
+        setIsLoading(false);
     };
 
      useEffect(() => {
-      if (user) {
-        getAllBookings();
-      }    
-    }, [user]);
+      getAllBookings();
+      // if (user) {
+      //   getAllBookings();
+      // }    
+    }, []);
 
 
   return !isLoading ? (

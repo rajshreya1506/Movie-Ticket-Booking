@@ -16,11 +16,11 @@ const SeatLayout = () => {
   const [selectedSeats, setSelectedSeats] = useState([])
   const [selectedTime, setSelectedTime] = useState(null)
   const [show, setShow] = useState(null)
-  const [occupiedSeats, setOccupiedSeats] = useState([])
+  //const [occupiedSeats, setOccupiedSeats] = useState([])
 
   const navigate = useNavigate()
 
-  const {axios, getToken, user} = useAppContext();
+  //const {axios, getToken, user} = useAppContext();
 
   const getShow = async () =>{
     // try {
@@ -31,7 +31,7 @@ const SeatLayout = () => {
     // } catch (error) {
     //   console.log(error)
     // }
-    const show = dummyShowsData.find(show => show.id === id)
+    const show = dummyShowsData.find(show => show._id === id)
     if(show){
       setShow({
         movie: show,
@@ -47,9 +47,9 @@ const SeatLayout = () => {
       if(!selectedSeats.includes(seatId) && selectedSeats.length > 4){
         return toast("You can only select 5 seats")
       }
-      if(occupiedSeats.includes(seatId)){
-        return toast('This seat is already booked')
-      }
+      // if(occupiedSeats.includes(seatId)){
+      //   return toast('This seat is already booked')
+      // }
       setSelectedSeats(prev => prev.includes(seatId) ? prev.filter(seat => seat !== seatId) : [...prev, seatId])
   }
 
@@ -61,7 +61,7 @@ const SeatLayout = () => {
                     return (
                         <button key={seatId} onClick={() => handleSeatClick(seatId)} className={`h-8 w-8 rounded border border-primary/60 cursor-pointer
                          ${selectedSeats.includes(seatId) && "bg-primary text-white"} 
-                         ${occupiedSeats.includes(seatId) && "opacity-50"}`}>
+                         `}>
                             {seatId}
                         </button>
                     );
@@ -106,11 +106,11 @@ const SeatLayout = () => {
     getShow()
   },[])
 
-  useEffect(()=>{
-    if(selectedTime){
-      getOccupiedSeats()
-    }
-  },[selectedTime])
+  // useEffect(()=>{
+  //   if(selectedTime){
+  //     getOccupiedSeats()
+  //   }
+  // },[selectedTime])
 
   return show ? (
     <div className='flex flex-col md:flex-row px-6 md:px-16 lg:px-40 py-30 md:pt-50'>
